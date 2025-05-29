@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TaskApp</string>
+
+    <string name="welcome">Welcome!</string>
+    <string name="tasks">Tasks</string>
+    <string name="chat">Chat</string>
+    <string name="task_name">Task name</string>
+    <string name="chat_placeholder">Chat #1</string>
+    <string name="with_phone">Log in using your phone number</string>
+    <string name="with_email">Log in by email</string>
+    <string name="email_screen">Log in by email</string>
+    <string name="username_screen">Log in by username</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="phone_screen">Log in using your phone number</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaskApp</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="tasks">задачи</string>
+    <string name="chat">чат</string>
+    <string name="task_name">название задачи</string>
+    <string name="chat_placeholder">чат</string>
+    <string name="with_phone">Войти с помощью номера телефона</string>
+    <string name="with_email">Войти с помощью электронной почты</string>
+    <string name="email_screen">Войдите по электронной почте</string>
+    <string name="username">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="phone_screen">Войдите по номеру телефона</string>
+    <string name="next">Далее</string>
+    <string name="back">Назад</string>
+    <string name="username_screen">Войдите по имени пользователя</string>
+</resources>
