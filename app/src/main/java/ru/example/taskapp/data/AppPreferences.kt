@@ -16,6 +16,7 @@ class AppPreferences(
     private val context: Context
 ) {
     private val authTokenKey = stringPreferencesKey("auth_token")
+    private val userRoleKey = stringPreferencesKey("user_role")
 
     suspend fun saveAuthToken(token: String) {
         context.dataStore.edit { preferences ->
@@ -23,15 +24,33 @@ class AppPreferences(
         }
     }
 
-    fun getAuthToken(): String? {
+    fun getAuthToken(): Flow<String?> {
         return context.dataStore.data.map { preferences ->
             preferences[authTokenKey]
-        }.toString()
+        }
     }
 
     suspend fun clearAuthToken() {
         context.dataStore.edit { preferences ->
             preferences.remove(authTokenKey)
+        }
+    }
+
+    suspend fun saveRole(role: String) {
+        context.dataStore.edit { preferences ->
+            preferences[userRoleKey] = role
+        }
+    }
+
+    fun getUserRole(): Flow<String?> {
+        return context.dataStore.data.map { preferences ->
+            preferences[userRoleKey]
+        }
+    }
+
+    suspend fun clearUserRole() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(userRoleKey)
         }
     }
 }

@@ -28,7 +28,7 @@ fun BottomNavigationBar(
 ) {
     val items = listOf(
         BottomNavItem("projects", painterResource(R.drawable.ic_command)),
-        BottomNavItem("chats", painterResource(R.drawable.ic_chat)),
+//        BottomNavItem("chats", painterResource(R.drawable.ic_chat)),
         BottomNavItem("calendar", painterResource(R.drawable.ic_calendar)),
         BottomNavItem("settings", painterResource(R.drawable.ic_settings))
     )

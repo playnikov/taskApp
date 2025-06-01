@@ -18,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,7 +38,7 @@ fun LoginScreen(
     navController: NavController
 ) {
     LaunchedEffect(Unit) {
-        if (viewModel.checkInitialAuthState()) navController.navigate("main") { popUpTo("splash") }
+        if (viewModel.checkInitialAuthState()) navController.navigate("main") { popUpTo("login") { inclusive = true } }
     }
 
 
@@ -69,7 +70,8 @@ fun LoginScreen(
             TextField(
                 value = username,
                 onValueChange = { username = it },
-                placeholder = stringResource(R.string.username)
+                placeholder = stringResource(R.string.username),
+                leadingIcon = painterResource(R.drawable.ic_user)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -78,7 +80,8 @@ fun LoginScreen(
                 value = password,
                 onValueChange = { password = it },
                 placeholder = stringResource(R.string.password),
-                isPassword = true
+                isPassword = true,
+                leadingIcon = painterResource(R.drawable.ic_password)
             )
 
             Spacer(modifier = Modifier.height(16.dp))

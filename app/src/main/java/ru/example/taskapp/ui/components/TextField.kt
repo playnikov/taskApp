@@ -1,5 +1,7 @@
 package ru.example.taskapp.ui.components
 
+import android.graphics.drawable.Icon
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,6 +13,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -29,17 +32,24 @@ fun TextField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     isPassword: Boolean = false,
-    isPhone: Boolean = false
+    isPhone: Boolean = false,
+    leadingIcon: Painter?=null,
+    contentDescription: String?=null
 ) {
     val colors = LocalExtendedColors.current
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         placeholder = { Text(placeholder, color = colors.ming.copy(alpha = 0.5f)) },
-        leadingIcon = {
-            if (isPassword) Icon(painterResource(R.drawable.ic_password), contentDescription = stringResource(R.string.password))
-            else if (isPhone) Text("+7")
-            else Icon(painterResource(R.drawable.ic_user), contentDescription = stringResource(R.string.username))
+        leadingIcon = if (leadingIcon != null) { // Conditional leadingIcon
+            {
+                Icon(
+                    painter = leadingIcon,
+                    contentDescription = contentDescription
+                )
+            }
+        } else {
+            null
         },
         shape = RoundedCornerShape(10.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -66,7 +76,7 @@ private fun PreviewTextField() {
         TextField(
             value = "",
             onValueChange = {},
-            placeholder = "",
+            placeholder = "1234",
             isPassword = false,
             isPhone = false
         )
