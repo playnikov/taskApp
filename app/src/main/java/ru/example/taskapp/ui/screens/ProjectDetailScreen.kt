@@ -49,8 +49,6 @@ fun ProjectDetailScreen(
         viewModel.loadManagers()
     }
 
-    val projectLocal = project
-
     Column(
         modifier = Modifier
             .fillMaxSize()

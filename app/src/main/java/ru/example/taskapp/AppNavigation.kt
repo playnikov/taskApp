@@ -22,7 +22,7 @@ fun AppNavigation() {
         composable(
             route = "main"
         ) {
-            MainScreen()
+            MainScreen(navController = navController)
         }
     }
 }

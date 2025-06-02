@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,6 +15,7 @@ import ru.example.taskapp.ui.components.BottomNavigationBar
 
 @Composable
 fun MainScreen(
+    navController: NavController
 ) {
     val mainNavController = rememberNavController()
     LaunchedEffect("projects") {
@@ -41,7 +43,7 @@ fun MainScreen(
             }
 
             composable("settings") {
-
+                SettingsScreen(navController = navController)
             }
 
             composable(

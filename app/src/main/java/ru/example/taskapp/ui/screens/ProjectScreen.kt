@@ -81,7 +81,10 @@ fun ProjectScreen(
                     ProjectList(
                         projects = filteredProjects,
                         onProjectClick = { projectId ->
-                            navController.navigate("project_detail/${projectId}")
+                            when (userRole) {
+                                "admin" ->navController.navigate("project_detail/${projectId}")
+                                else -> {}
+                            }
                         }
                     )
                 }

@@ -34,6 +34,7 @@ import ru.example.taskapp.ui.theme.TaskAppTheme
 import ru.example.taskapp.ui.theme.colors.AppExtendedColors
 import ru.example.taskapp.ui.theme.colors.LocalExtendedColors
 import ru.example.taskapp.utils.formattedDate
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -47,8 +48,10 @@ fun TaskItem(
     modifier: Modifier = Modifier
 ) {
     val colors = LocalExtendedColors.current
-    val formattedDate = formatDate(convertToUserTimeZone(LocalDateTime.parse(task.deadline)))
+    val deadlineDateTime = convertToUserTimeZone(LocalDateTime.parse(task.deadline))
+    val formattedDate = formatDate(deadlineDateTime)
 
+    val timeLeft = calculateTimeLeft(deadlineDateTime)
     Card(
         modifier = modifier
             .fillMaxWidth(),
@@ -116,11 +119,13 @@ fun TaskItem(
 
                 }
 
-                Text(
-                    text = "",
-                    color = colors.ming,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                if (task.status.toTaskStatus() != TaskStatus.COMPLETED) {
+                    Text(
+                        text = timeLeft,
+                        color = colors.ming,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -192,6 +197,32 @@ private fun formatDate(localDateTime: LocalDateTime): String {
     return localDateTime.format(formatter)
 }
 
+private fun calculateTimeLeft(deadline: LocalDateTime): String {
+    val now = LocalDateTime.now()
+    if (now.isAfter(deadline)) return "Просрочено"
+
+    val duration = Duration.between(now, deadline)
+
+    return when {
+        duration.toDays() > 0 -> {
+            val days = duration.toDays()
+            val hours = duration.minusDays(days).toHours()
+            "$days д $hours ч"
+        }
+        duration.toHours() > 0 -> {
+            val hours = duration.toHours()
+            val minutes = duration.minusHours(hours).toMinutes()
+            "$hours ч $minutes м"
+        }
+        duration.toMinutes() > 0 -> {
+            val minutes = duration.toMinutes()
+            val seconds = duration.minusMinutes(minutes).seconds
+            "$minutes м $seconds с"
+        }
+        else -> "${duration.seconds} с"
+    }
+}
+
 enum class TaskStatus(val displayName: String) {
     NEW("new"),
     IN_PROGRESS("in_progress"),
@@ -237,7 +268,7 @@ private fun PreviewNewTaskListItem() {
                 developerName = "Никитина Елена Владимировна",
 //                deadline = LocalDateTime.now().plusDays(2).plusHours(3),
                 deadline = LocalDateTime.of(2025, 5, 25, 18, 0).toString(),
-                status = TaskStatus.NEW.toString(),
+                status = TaskStatus.COMPLETED.toString(),
                 priority = TaskPriority.LOW.toString(),
                 createdAt = LocalDateTime.of(2025, 5, 25, 18, 0).toString(),
                 updatedAt = LocalDateTime.of(2025, 5, 25, 18, 0).toString(),

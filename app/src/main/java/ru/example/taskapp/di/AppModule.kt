@@ -6,10 +6,12 @@ import ru.example.taskapp.data.AppPreferences
 import ru.example.taskapp.data.remote.ApiClient
 import ru.example.taskapp.data.repository.AuthRepository
 import ru.example.taskapp.data.repository.ProjectRepository
+import ru.example.taskapp.data.repository.SettingsRepository
 import ru.example.taskapp.data.repository.TaskRepository
 import ru.example.taskapp.data.repository.UserRepository
 import ru.example.taskapp.viewmodel.LoginViewModel
 import ru.example.taskapp.viewmodel.ProjectViewModel
+import ru.example.taskapp.viewmodel.SettingsViewModel
 import ru.example.taskapp.viewmodel.TaskViewModel
 
 
@@ -23,8 +25,9 @@ val appModule = module {
     single { ProjectRepository(get(), get()) }
     single { TaskRepository(get(), get()) }
     single { UserRepository(get(), get()) }
+    single { SettingsRepository(get(), get()) }
     viewModel { LoginViewModel(get()) }
     viewModel { ProjectViewModel(get(), get()) }
     viewModel { TaskViewModel(get()) }
-
+    viewModel { SettingsViewModel(get()) }
 }
